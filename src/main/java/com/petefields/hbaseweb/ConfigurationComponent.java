@@ -12,21 +12,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConfigurationComponent {
 	private static final Logger logger = LoggerFactory.getLogger(ConfigurationComponent.class);
-	
+
 	@Value("${hbase.zookeeper.quorum}")
 	private String quorum;
-	
+
 	@Value("${hbase.zookeeper.property.clientPort}")
 	private String clientPort;
-	
+
 	@Value("${hbase.master}")
 	private String hbaseMaster;
-	
+
 	@Value("${zookeeper.znode.parent}")
 	private String znodeParent;
-	
+
 	private Configuration configuration = HBaseConfiguration.create();
-	
+
 	/**
 	 * 
 	 */
@@ -36,7 +36,7 @@ public class ConfigurationComponent {
 		logger.info("hbase.zookeeper.property.clientPort: {}", clientPort);
 		logger.info("hbase.master: {}", hbaseMaster);
 		logger.info("zookeeper.znode.parent: {}", znodeParent);
-		
+
 		this.setConfiguration(this.getHBaseConfig());
 	}
 
@@ -103,7 +103,7 @@ public class ConfigurationComponent {
 	public void setZnodeParent(String znodeParent) {
 		this.znodeParent = znodeParent;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -126,17 +126,17 @@ public class ConfigurationComponent {
 	 */
 	private Configuration getHBaseConfig() {
 		Configuration conf = HBaseConfiguration.create();
-		
+
 		logger.info("Setup Hbase configuration");
 
 		if (!this.getQuorum().isEmpty())
-                    conf.set("hbase.zookeeper.quorum", this.getQuorum());
+			conf.set("hbase.zookeeper.quorum", this.getQuorum());
 		if (!this.getClientPort().isEmpty())
-		    conf.set("hbase.zookeeper.property.clientPort", this.getClientPort());
+			conf.set("hbase.zookeeper.property.clientPort", this.getClientPort());
 		if (!this.getHbaseMaster().isEmpty())
-		    conf.set("hbase.master", this.getHbaseMaster());
+			conf.set("hbase.master", this.getHbaseMaster());
 		if (!this.getZnodeParent().isEmpty())
-		    conf.set("zookeeper.znode.parent", this.getZnodeParent());
+			conf.set("zookeeper.znode.parent", this.getZnodeParent());
 
 		return conf;
 	}
